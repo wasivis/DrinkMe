@@ -1,0 +1,441 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-y: auto;
+}
+
+html {
+  font-family: "Nunito Sans", sans-serif;
+  font-optical-sizing: auto;
+}
+
+body {
+  background-color: #404040;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.preset-info-wrapper {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  z-index: 20;
+}
+
+.info-icon {
+  color: #ffffff;
+  font-size: 18px;
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.info-icon:hover {
+  color: #00d1b2;
+  transform: scale(1.2);
+}
+
+.preset-tooltip {
+  position: absolute;
+  top: 28px;
+  left: 0;
+  width: 350px;
+  background-color: #222;
+  color: #eee;
+  padding: 8px 12px;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  font-size: 12px;
+  line-height: 1.4;
+  word-wrap: break-word;
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.logo {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+
+.preset-info-wrapper:hover .preset-tooltip {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.file-selection {
+  display: flex;
+  margin: 0;
+  gap: 20px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+button {
+  padding: 17px 40px;
+  border-radius: 10px;
+  border: 0;
+  letter-spacing: 1.5px;
+  font-size: 18px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  color: white;
+  cursor: pointer;
+  font-family: "Nunito Sans", sans-serif;
+  font-optical-sizing: auto;
+  user-select: none;
+  min-width: 140px;
+}
+
+#fileBtn {
+  display: inline-block;
+  background-color: #2574a8;
+  box-shadow: #1d5c85 0px 10px 0px 0px;
+  margin-top: 0;
+}
+
+#fileBtn:hover {
+  box-shadow: #164361 0px 7px 0px 0px;
+}
+
+#fileBtn:active {
+  background-color: #2574a8;
+  box-shadow: #164361 0px 0px 0px 0px;
+  transform: translateY(5px);
+  transition: 200ms;
+}
+
+#fileBtn.hidden {
+  display: none;
+}
+
+#estimateLabel {
+  font-size: 13px;
+  color: #eaeaea;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
+  padding: 6px 12px;
+  border-radius: 10px;
+  margin-top: 10px;
+  opacity: 0;
+  animation: fadeIn 0.3s ease-out 0.1s forwards;
+}
+
+#estimateLabel.hidden {
+  display: none;
+}
+
+.encodingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 60px;
+}
+
+#encodeBtn {
+  background-color: #2fc451;
+  box-shadow: #29a144 0px 10px 0px 0px;
+  display: none;
+}
+
+#encodeBtn.visible {
+  display: inline-block;
+}
+
+#encodeBtn:hover {
+  box-shadow: #1b7a31 0px 7px 0px 0px;
+  transform: translateY(-2px);
+}
+
+#encodeBtn:active {
+  background-color: #2fc451;
+  box-shadow: #29a144 0px 0px 0px 0px;
+  transform: translateY(5px);
+  transition: 200ms;
+}
+
+#cancelBtn {
+  background-color: #dc3545;
+  box-shadow: #a62734 0px 10px 0px 0px;
+  display: none;
+}
+
+#cancelBtn:hover {
+  box-shadow: #86202a 0px 7px 0px 0px;
+}
+
+#cancelBtn:active {
+  background-color: #dc3545;
+  box-shadow: #771c25 0px 0px 0px 0px;
+  transform: translateY(5px);
+  transition: 200ms;
+}
+
+#cancelBtn.visible {
+  display: inline-block;
+}
+
+.progress-container {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  display: none;
+}
+.progress-container.visible {
+  display: flex;
+}
+
+.progress-header {
+  font-size: 18px;
+  color: #ffffff;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #eeeeee;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-family: "Nunito Sans", sans-serif;
+}
+
+.fancy-progress-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.fancy-progress-bar {
+  position: relative;
+  display: block;
+  width: 280px;
+  height: 20px;
+  border-radius: 6px;
+  background-color: #1a1a1a;
+  box-shadow:
+    inset 0 1px 3px rgba(0, 0, 0, 0.6),
+    0 0 0 1px #444;
+  overflow: hidden;
+}
+
+.fancy-bar-inner {
+  height: 100%;
+  width: 0%;
+  background-color: #4caf50;
+  transition: width 0.4s ease;
+  border-radius: 6px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.fancy-percent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 14px;
+  font-weight: 800;
+  color: #ffffff;
+  white-space: nowrap;
+  pointer-events: none;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+/* Diagonal stripe texture */
+.stripes {
+  background-size: 30px 30px;
+  background-image: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  );
+}
+
+/* Animate the stripe motion */
+.animated {
+  animation: animate-stripes 1.25s linear infinite;
+}
+
+@keyframes animate-stripes {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 60px 0;
+  }
+}
+
+/* Reuse your existing info layout */
+.progress-info {
+  display: flex;
+  justify-content: center;
+  width: 280px;
+  font-size: 14px;
+  color: #cccccc;
+  margin-top: 6px;
+  font-weight: 600;
+  font-family: "Nunito Sans", sans-serif;
+}
+
+#statusBox {
+  margin-top: 40px;
+  padding: 10px 15px;
+  max-width: 550px;
+  background-color: #222;
+  border-left: 5px solid #3498db;
+  color: white;
+  font-weight: bold;
+  border-radius: 4px;
+  text-align: left;
+  display: none;
+  opacity: 1;
+  word-break: break-all;
+  transition: opacity 0.5s ease;
+}
+
+/* Visible in layout (no fade) */
+#statusBox.visible {
+  display: flex;
+  opacity: 1;
+}
+
+/* When this class is added, we fade out */
+#statusBox.fade-out {
+  opacity: 0;
+}
+
+#statusBox.success {
+  border-left-color: #2ecc71;
+}
+
+#statusBox.error {
+  border-left-color: #e74c3c;
+}
+
+#statusBox.warning {
+  border-left-color: #f39c12;
+}
+
+.spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.spinner.hidden {
+  display: none;
+}
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 32px;
+  height: 32px;
+  margin: 4px;
+  border-radius: 50%;
+  border: 4px solid #3498db;
+  border-color: #3498db transparent #3498db transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+#spinnerText {
+  margin-top: 10px;
+  font-size: 14px;
+  color: white;
+}
+
+#showFolderBtn {
+  background-color: #17a2b8;
+  box-shadow: #138496 0px 10px 0px 0px;
+  margin-top: 10px;
+  display: none;
+}
+
+#showFolderBtn:hover {
+  box-shadow: #0f6674 0px 7px 0px 0px;
+}
+
+#showFolderBtn:active {
+  background-color: #17a2b8;
+  box-shadow: #0f6674 0px 0px 0px 0px;
+  transform: translateY(5px);
+  transition: 200ms;
+}
+
+#showFolderBtn.visible {
+  display: inline-block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  font-size: 12px;
+  padding: 8px;
+  line-height: 1.4;
+}
+
+.footer a {
+  all: unset;
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline; /* bring back underline on hover */
+}

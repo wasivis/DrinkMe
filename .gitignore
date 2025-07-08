@@ -1,0 +1,26 @@
+# Node modules
+node_modules/
+
+# Build outputs
+dist/
+build/
+
+# Logs
+npm-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor directories
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.local
+
+# external binaries
+/ffmpeg/*.exe
+/node_modules/electron/dist/electron.exe

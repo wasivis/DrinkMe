@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>DrinkMe</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" type="image/x-icon" href="/assets/icon.ico" />
+    <link
+      rel="stylesheet"
+      href="node_modules/@fortawesome/fontawesome-free/css/all.min.css"
+    />
+  </head>
+  <body>
+    <a href="https://github.com/wasivis" target="_blank"
+      ><img
+        src="assets/logo.png"
+        alt="drinkme-logo"
+        class="logo"
+        width="32"
+        height="32"
+    /></a>
+    <div class="preset-info-wrapper">
+      <i class="fa-solid fa-circle-question info-icon"></i>
+      <div class="preset-tooltip">
+        DrinkMe automatically shrinks your videos while keeping the best
+        possible quality—no settings or tweaks needed!
+      </div>
+    </div>
+    <div class="file-selection">
+      <button id="fileBtn">Select Video File</button>
+    </div>
+    <div class="encodingContainer">
+      <div id="estimateLabel"></div>
+      <button id="cancelBtn">Cancel</button>
+      <button id="encodeBtn">Shrink</button>
+    </div>
+    <div class="progress-container">
+      <div class="progress-header" id="progressHeader"></div>
+      <div class="fancy-progress-container">
+        <div class="fancy-progress-bar stripes animated">
+          <span id="fancyPercent" class="fancy-percent">0%</span>
+          <div id="fancyBarInner" class="fancy-bar-inner"></div>
+        </div>
+        <div class="progress-info">
+          <span id="passNumberText"></span>
+        </div>
+      </div>
+    </div>
+    <div id="loadingSpinner" class="spinner hidden">
+      <div class="lds-dual-ring"></div>
+      <div id="spinnerText">Analyzing video...</div>
+    </div>
+    <div id="statusBox" class="hidden"></div>
+    <div id="summaryBox" class="hidden"></div>
+    <button id="showFolderBtn">Show in folder</button>
+    <div class="footer">
+      made with ❤️ by
+      <a href="https://wasivis.netlify.app" target="_blank"> wasivis</a> - 2025
+    </div>
+    <script src="renderer.js"></script>
+  </body>
+</html>
