@@ -1,6 +1,8 @@
 # <img src="assets/logo.png" alt="logo" width="24" height="24" /> DrinkMe
 
 [![Release](https://img.shields.io/github/v/release/wasivis/DrinkMe)](https://github.com/wasivis/DrinkMe/releases)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Platform: Windows](https://img.shields.io/badge/platform-Windows-blue)](#download)
 
 ---
 
@@ -24,10 +26,12 @@ DrinkMe is a minimalist desktop app that **automatically compresses** videos int
 
 ## 🪄 Features
 
-- Automatic 2-pass compression for best quality and smaller file size
-- Estimate file size before shrinking
-- Warning if savings are under 10 MB
-- Notification when shrinking is complete and DrinkMe is not focused
+- ✂️ Two-button workflow — select a file, press shrink
+- 📦 FFmpeg integration — bundled binaries, no separate install needed
+- 🔎 Automatic analysis — estimates disk savings before compressing
+- ⚠️ Smart safeguards — skips compression for negligible savings, low disk space, or duplicate outputs
+- 📼 Broad format support — handles virtually any common video type
+- ⚙️ Portable & installer versions — zero-install EXE or full setup
 
 ---
 
@@ -54,13 +58,13 @@ DrinkMe is a minimalist desktop app that **automatically compresses** videos int
 
 ##### 📦 <u>Portable Version</u>
 
-- Download the `.zip` file from the Releases page
+- Download the _.zip_ file from the Releases page
 - Extract it anywhere you like
-- Double-click `DrinkMe.exe` to launch
+- Double-click _DrinkMe.exe_ to launch
 
 ##### 🛠️ <u>Installable Version</u>
 
-- Download the latest `DrinkMe Setup x.x.x`
+- Download the latest _DrinkMe Setup x.x.x_
 - Choose your preferred install directory during setup
 - Use the desktop or Start Menu shortcut to launch
 
@@ -74,7 +78,7 @@ DrinkMe is a minimalist desktop app that **automatically compresses** videos int
 
 3️⃣ Click **Shrink**.
 
-4️⃣ Find your compressed video alongside the original.
+4️⃣ Your compressed file will appear next to the original in the same folder.
 
 ---
 
@@ -85,6 +89,17 @@ DrinkMe is a minimalist desktop app that **automatically compresses** videos int
 If you find DrinkMe useful and want to support future updates, a coffee goes a long way 💜
 
 [![Buy Me a Coffee](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=💜&slug=wasivis&button_colour=FFDD00&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=ffffff)](https://www.buymeacoffee.com/wasivis)
+
+---
+
+## 🙏 Acknowledgments
+
+DrinkMe uses:
+
+- [Electron](https://www.electronjs.org/)
+- [FFmpeg](https://ffmpeg.org/) — licensed under LGPL/GPL
+- [ffmpeg-static](https://www.npmjs.com/package/ffmpeg-static)
+- [ffprobe-static](https://www.npmjs.com/package/ffprobe-static)
 
 ---
 
