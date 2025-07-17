@@ -1,6 +1,6 @@
 # <img src="assets/logo.png" alt="logo" width="24" height="24" /> DrinkMe
 
-[![Release](https://img.shields.io/github/v/release/wasivis/DrinkMe)](https://github.com/wasivis/DrinkMe/releases)
+[![Tag](https://img.shields.io/github/v/release/wasivis/DrinkMe)](https://github.com/wasivis/DrinkMe/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Platform: Windows](https://img.shields.io/badge/platform-Windows-blue)](#download)
 
