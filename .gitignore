@@ -1,26 +1,50 @@
-# Node modules
-node_modules/
+# ─── Dependencies ─────────────────────────────────────────────────────────────
+/node_modules/
 
-# Build outputs
-dist/
-build/
+# ─── Build & Release Outputs ─────────────────────────────────────────────────
+/dist/
+/build/
+/out/
+/release/
+/ffmpeg/
 
-# Logs
+# ─── Electron-builder cache (optional) ────────────────────────────────────────
+/.electron-builder-cache/
+
+# ─── Logs & Reports ───────────────────────────────────────────────────────────
 npm-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+*.log
 
-# OS files
+# ─── OS-specific ─────────────────────────────────────────────────────────────
 .DS_Store
 Thumbs.db
+desktop.ini
 
-# Editor directories
+# ─── IDEs & Editors ───────────────────────────────────────────────────────────
 .vscode/
 .idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
 
-# Temporary files
+# ─── Environment files ────────────────────────────────────────────────────────
+.env
+.env.*.local
+
+# ─── Coverage & Testing ──────────────────────────────────────────────────────
+/coverage/
+/.nyc_output/
+/jest/
+.vitest/
+
+# ─── Temp & Cache ─────────────────────────────────────────────────────────────
 *.tmp
+*.temp
+.cache/
 *.local
 
-# external binaries
-/ffmpeg/*.exe
-/node_modules/electron/dist/electron.exe
+# ─── Miscellaneous ───────────────────────────────────────────────────────────
+*.pem               # certs

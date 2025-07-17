@@ -37,8 +37,8 @@ body {
   font-size: 18px;
   cursor: pointer;
   transition:
-    color 0.2s ease,
-    transform 0.2s ease;
+    color 0.3s ease,
+    transform 0.3s ease;
 }
 
 .info-icon:hover {
@@ -63,14 +63,33 @@ body {
   transform: translateY(-6px);
   pointer-events: none;
   transition:
-    opacity 0.2s ease,
-    transform 0.2s ease;
+    opacity 0.3s ease,
+    transform 0.3s ease;
 }
 
 .logo {
   position: absolute;
   top: 12px;
   right: 12px;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.1);
+  animation: pulseFilter 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes pulseFilter {
+  0% {
+    filter: none;
+  }
+  100% {
+    filter: hue-rotate(180deg) brightness(1.3) contrast(1.2) saturate(1.2);
+  }
+}
+
+.logo:active {
+  transform: scale(1);
 }
 
 .preset-info-wrapper:hover .preset-tooltip {
@@ -207,15 +226,15 @@ button {
 }
 
 .progress-header {
-  font-size: 18px;
+  font-size: 14px;
   color: #ffffff;
-  font-weight: 600;
+  font-weight: 500;
   margin-bottom: 10px;
   color: #eeeeee;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(4px);
-  padding: 6px 12px;
+  padding: 6px;
   border-radius: 10px;
   font-family: "Nunito Sans", sans-serif;
 }
@@ -302,7 +321,7 @@ button {
   font-size: 14px;
   color: #cccccc;
   margin-top: 6px;
-  font-weight: 600;
+  font-weight: 500;
   font-family: "Nunito Sans", sans-serif;
 }
 
@@ -313,7 +332,8 @@ button {
   background-color: #222;
   border-left: 5px solid #3498db;
   color: white;
-  font-weight: bold;
+  font-size: 14px;
+  font-weight: 500;
   border-radius: 4px;
   text-align: left;
   display: none;

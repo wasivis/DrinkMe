@@ -24,14 +24,24 @@ let activeProcess = null;
 let totalDuration = null;
 let currentEncoding = null;
 let isCanceled = false;
+let passLogBase = null;
+let encodingDir = null;
 
 // Holds the calculated settings from analyze-file → start-encoding
 const encodingSettings = {};
 
 // Path to FFprobe/FFmpeg shipped in your app bundle
-const BIN_DIR = path.join(__dirname, "ffmpeg");
-const ffprobePath = path.join(BIN_DIR, "ffprobe.exe");
-const ffmpegPath = path.join(BIN_DIR, "ffmpeg.exe");
+const isDev = !app.isPackaged;
+// use ffmpeg-static (exports the exe path) in dev,
+// and your extraResources copy in prod
+const ffmpegPath = isDev
+  ? require("ffmpeg-static")
+  : path.join(process.resourcesPath, "ffmpeg", "ffmpeg.exe");
+
+// ffprobe-static ships an object with a `.path` property
+const ffprobePath = isDev
+  ? require("ffprobe-static").path
+  : path.join(process.resourcesPath, "ffmpeg", "ffprobe.exe");
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Utility Functions
@@ -65,41 +75,69 @@ function killProcessTree(pid) {
  * stops any in-flight FFmpeg, rejects promise, resets flags.
  */
 async function cleanupEncoding() {
+  console.log("[main] cleanupEncoding called");
+
   isCanceled = true;
+
   if (activeProcess?.pid) {
+    console.log("[main] Killing process tree:", activeProcess.pid);
     await killProcessTree(activeProcess.pid);
   }
+
   if (currentEncoding) {
     currentEncoding.reject(new Error("Encoding canceled"));
     currentEncoding = null;
   }
+
   activeProcess = null;
   totalDuration = null;
+
   // small delay so processes wind down
   await new Promise((r) => setTimeout(r, 500));
+
+  // Cleanup log files if paths are available
+  if (passLogBase && encodingDir) {
+    console.log("[main] Deleting temp files from:", encodingDir, passLogBase);
+    await deletePassLogFiles(encodingDir, passLogBase);
+  } else {
+    console.warn(
+      "[main] ⚠ Skipping log cleanup—missing encodingDir or passLogBase",
+    );
+  }
+
+  // Optional: clear them for safety
+  passLogBase = null;
+  encodingDir = null;
 }
 
 /**
  * Remove all temporary two-pass log files.
  */
-function deletePassLogFiles(dir, statsBase) {
+async function deletePassLogFiles(dir, statsBase) {
+  console.log("[main] Attempting to delete temp files for:", statsBase);
+
   const tempFiles = [
     `${statsBase}`,
     `${statsBase}.log`,
+    `${statsBase}.log.temp`,
     `${statsBase}.log.cutree`,
+    `${statsBase}.log.cutree.temp`,
     `${statsBase}-0`,
     `${statsBase}-0.log`,
     `${statsBase}-0.log.mbtree`,
+    `${statsBase}-0.log.mbtree.temp`,
   ];
 
-  for (const tempPath of tempFiles) {
+  const deletionPromises = tempFiles.map((tempPath) => {
     const fullPath = path.join(dir, tempPath);
-    fs.promises.unlink(fullPath).catch((err) => {
+    return fs.promises.unlink(fullPath).catch((err) => {
       if (err.code !== "ENOENT") {
         console.warn(`[main] Could not delete temp file: ${fullPath}`, err);
       }
     });
-  }
+  });
+
+  await Promise.allSettled(deletionPromises);
 }
 
 /**
@@ -215,23 +253,27 @@ ipcMain.on("start-encoding", async (event, inputPath) => {
   // 2) Build file names & paths
   const settings = encodingSettings[inputPath];
   const dir = path.dirname(inputPath);
-  const baseName = path.basename(inputPath, path.extname(inputPath)); // original
-  const safeBaseName = baseName.replace(/[^a-zA-Z0-9_-]/g, "_"); // for stats only
-  const statsBase = `${safeBaseName}_ffmpeg2pass`;
+  const baseName = path.basename(inputPath, path.extname(inputPath));
+  const safeBase = baseName.replace(/[^a-zA-Z0-9_-]/g, "_");
+  const statsBase = `${safeBase}_ffmpeg2pass`;
   const nullSink = process.platform === "win32" ? "NUL" : "/dev/null";
 
-  // 3) Disk-space check (allow a 10% cushion)
+  // 3) Kill any prior runs _first_
+  await cleanupEncoding();
+  isCanceled = false;
+
+  // 4) Now assign the globals so they stick around until we cancel
+  passLogBase = statsBase;
+  encodingDir = dir;
+
+  // 5) Disk‐space check
   try {
     await ensureEnoughDisk(dir, settings.targetSizeBytes * 1.1);
   } catch (err) {
     return event.sender.send("encoding-error", err.message);
   }
 
-  // 4) Kill any prior runs
-  await cleanupEncoding();
-  isCanceled = false;
-
-  // 5) Launch the two-pass encode
+  // 6) Launch the two‐pass encode
   try {
     const result = await twoPassEncode(
       inputPath,
@@ -327,7 +369,7 @@ function twoPassEncode(
         "2",
         "-pass",
         "2",
-        `${dir}/${baseName}_SMALL.mp4`,
+        path.join(dir, `${baseName}_SMALL.mp4`),
       ];
     }
   };
@@ -407,7 +449,7 @@ function twoPassEncode(
           deletePassLogFiles(dir, statsBase);
           resolve({
             success: true,
-            outputFile: `${dir}/${baseName}_SMALL.mp4`,
+            outputFile: path.join(dir, `${baseName}_SMALL.mp4`),
           });
         }
       });
@@ -428,6 +470,7 @@ function twoPassEncode(
 // ─────────────────────────────────────────────────────────────────────────────
 
 ipcMain.on("cancel-encoding", async () => {
+  console.log("[main] Cancel requested");
   await cleanupEncoding();
   mainWindow.webContents.send("encoding-cancelled");
 });
@@ -492,16 +535,16 @@ function calculateTargetBitrate({
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 600,
-    height: 500,
+    width: 620,
+    height: 520,
     icon: path.join(__dirname, "assets", "icon.ico"),
     webPreferences: {
-      preload: path.join(__dirname, "preload.js"),
+      preload: path.join(__dirname, "src", "preload.js"),
       contextIsolation: true,
       nodeIntegration: false,
     },
   });
-  mainWindow.loadFile("index.html");
+  mainWindow.loadFile(path.join("src", "index.html"));
   mainWindow.setTitle("DrinkMe");
 }
 

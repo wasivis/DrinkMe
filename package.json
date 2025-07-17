@@ -1,22 +1,89 @@
 {
   "name": "drinkme-electron",
   "version": "1.0.0",
-  "description": "",
+  "description": "Minimalist desktop app that automatically compresses video files to save space.",
   "main": "main.js",
-  "scripts": {
-    "start": "electron ."
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "type": "commonjs",
+  "author": "wasivis",
+  "license": "MIT",
+  "keywords": [
+    "video",
+    "compression",
+    "desktop",
+    "electron",
+    "ffmpeg",
+    "minimalist"
+  ],
+  "scripts": {
+    "start": "electron .",
+    "dist": "npx electron-builder"
+  },
+  "build": {
+    "appId": "com.wasivis.drinkme",
+    "productName": "DrinkMe",
+    "directories": {
+      "output": "dist"
+    },
+    "asar": true,
+    "compression": "maximum",
+    "removePackageScripts": true,
+    "files": [
+      "main.js",
+      "assets/**/*",
+      "src/**/*",
+      "!src/**/*.ts",
+      "!**/*.map",
+      "!**/*.md",
+      "!**/node_modules/*/{test,__tests__,docs,example,*.md}/**",
+      "!**/node_modules/.bin",
+      "!node_modules/ffmpeg-static/**",
+      "!node_modules/ffprobe-static/**"
+    ],
+    "extraResources": [
+      {
+        "from": "node_modules/ffmpeg-static/ffmpeg.exe",
+        "to": "ffmpeg/ffmpeg.exe"
+      },
+      {
+        "from": "node_modules/ffprobe-static/bin/win32/${arch}/ffprobe.exe",
+        "to": "ffmpeg/ffprobe.exe"
+      }
+    ],
+    "win": {
+      "icon": "assets/icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        },
+        "portable"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "DrinkMe",
+      "runAfterFinish": true
+    },
+    "afterPack": "scripts/cleanLocales.js"
+  },
   "devDependencies": {
     "cross-env": "^7.0.3",
-    "electron": "^37.0.0",
+    "electron": "37.0.0",
+    "electron-builder": "^26.0.12",
     "electron-reload": "^2.0.0-alpha.1"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.7.2",
-    "check-disk-space": "^3.4.0"
+    "check-disk-space": "^3.4.0",
+    "ffmpeg-static": "^5.2.0",
+    "ffprobe-static": "^3.1.0"
   }
 }

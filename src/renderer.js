@@ -157,7 +157,6 @@ fileBtn.addEventListener("click", async () => {
     } else {
       showStatusMessage(`Selected file: ${filePath}`, "success");
     }
-    console.log("[Renderer] Analysis result:", analysis);
   } catch (err) {
     encodeBtn.classList.remove("visible");
     estimateLabel.classList.add("hidden");
