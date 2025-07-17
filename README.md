@@ -14,16 +14,17 @@
 - [Download & Installation](#download)
 - [Usage](#usage)
 - [Support my work](#support)
+- [Acknowledgments](#acknowledgments)
 - [License](#license)
 
 ---
-
+<a name="overview"></a>
 ## 📘 Overview
 
 DrinkMe is a minimalist desktop app that **automatically compresses** videos into smaller files—no manual settings or technical know-how required. Just pick a file, click **Shrink**, and save space.
 
 ---
-
+<a name="features"></a>
 ## 🪄 Features
 
 - ✂️ Two-button workflow — select a file, press shrink
@@ -34,7 +35,7 @@ DrinkMe is a minimalist desktop app that **automatically compresses** videos int
 - ⚙️ Portable & installer versions — zero-install EXE or full setup
 
 ---
-
+<a name="screenshots"></a>
 ## 🖼️ Screenshots
 
 <table>
@@ -69,7 +70,7 @@ DrinkMe is a minimalist desktop app that **automatically compresses** videos int
 - Use the desktop or Start Menu shortcut to launch
 
 ---
-
+<a name="usage"></a>
 ## ✂️ Usage
 
 1️⃣ Launch **DrinkMe**.
@@ -91,7 +92,7 @@ If you find DrinkMe useful and want to support future updates, a coffee goes a l
 [![Buy Me a Coffee](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=💜&slug=wasivis&button_colour=FFDD00&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=ffffff)](https://www.buymeacoffee.com/wasivis)
 
 ---
-
+<a name="acknowledgments"></a>
 ## 🙏 Acknowledgments
 
 DrinkMe uses:
@@ -102,7 +103,7 @@ DrinkMe uses:
 - [ffprobe-static](https://www.npmjs.com/package/ffprobe-static)
 
 ---
-
+<a name="license"></a>
 ## 📜 License
 
 DrinkMe is licensed under the [MIT License](LICENSE), with additional terms restricting use of the DrinkMe name and branding assets.
