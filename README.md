@@ -21,7 +21,7 @@
 <a name="overview"></a>
 ## 📘 Overview
 
-DrinkMe is a minimalist desktop app that **automatically compresses** videos into smaller files—no manual settings or technical know-how required. Just pick a file, click **Shrink**, and save space.
+DrinkMe is a minimalist desktop app that **automatically compresses** videos into smaller files—no manual settings or technical know-how required. Just pick a file, click **Shrink**, and save space. Although it varies depending on each file, it aims at reducing between 80-90% of the original size.
 
 ---
 <a name="features"></a>
