@@ -174,9 +174,10 @@ ipcMain.handle("open-file-dialog", async () => {
 
 ipcMain.handle("analyze-file", async (_, inputPath) => {
   try {
+    // 1) Get file size
     const inputSizeBytes = fs.statSync(inputPath).size;
 
-    // probe for duration & resolution
+    // 2) Build ffprobe arguments
     const ffprobeArgs = [
       "-v",
       "error",
@@ -188,17 +189,34 @@ ipcMain.handle("analyze-file", async (_, inputPath) => {
       "json",
       inputPath,
     ];
+
+    // 3) DEBUG: log the exact ffprobe command
+    const debugLogPath = path.join(app.getPath("userData"), "drinkme-log.txt");
+    fs.appendFileSync(
+      debugLogPath,
+      `[DEBUG] spawning ffprobe: ${ffprobePath} ${ffprobeArgs.join(" ")}\n`,
+    );
+
+    // 4) Run ffprobe
     const { stdout } = await new Promise((res, rej) =>
-      execFile(ffprobePath, ffprobeArgs, (e, so) =>
-        e ? rej(e) : res({ stdout: so }),
+      execFile(ffprobePath, ffprobeArgs, (err, so) =>
+        err ? rej(err) : res({ stdout: so }),
       ),
     );
+
+    // 5) DEBUG: capture ffprobe stdout
+    fs.appendFileSync(
+      debugLogPath,
+      `[DEBUG] ffprobe stdout: ${stdout.slice(0, 200)}\n`,
+    );
+
+    // 6) Parse metadata
     const probe = JSON.parse(stdout);
     const durationSec = parseFloat(probe.format.duration);
     const width = probe.streams[0].width;
     const height = probe.streams[0].height;
 
-    // compute bitrates, filter + estimate
+    // 7) Compute encoding settings
     const settings = calculateTargetBitrate({
       inputSizeBytes,
       durationSec,
@@ -206,21 +224,19 @@ ipcMain.handle("analyze-file", async (_, inputPath) => {
     });
     encodingSettings[inputPath] = settings;
 
-    // build UI-friendly estimate
-    const rawMB = settings.targetSizeBytes / (1024 * 1024); // float
-    const estimatedSizeMB = Math.ceil(rawMB); // display-friendly
+    // 8) Build user-facing estimates
+    const rawMB = settings.targetSizeBytes / (1024 * 1024);
+    const estimatedSizeMB = Math.ceil(rawMB);
     const estimatedOutputBytes = estimatedSizeMB * 1024 * 1024;
 
-    // warn if the space saved is less than 10MB
-    const savedBytes = inputSizeBytes - estimatedOutputBytes;
-    const savedMB = savedBytes / (1024 * 1024);
-
+    // 9) Warn if savings < 10MB
+    const savedMB = (inputSizeBytes - estimatedOutputBytes) / (1024 * 1024);
     const warning =
       savedMB < 10
         ? `This video is already highly compressed. This will only reduce the file by ~${savedMB.toFixed(1)} MB.`
         : null;
 
-    // final output path
+    // 10) Determine output path
     const baseName = path.basename(inputPath, path.extname(inputPath));
     const outputFile = path.join(
       path.dirname(inputPath),
@@ -233,8 +249,12 @@ ipcMain.handle("analyze-file", async (_, inputPath) => {
       };
     }
 
+    // 11) Return the results to renderer
     return { ...settings, estimatedSizeMB, warning, outputFile };
   } catch (err) {
+    // DEBUG: log the actual error
+    const logPath = path.join(app.getPath("userData"), "drinkme-log.txt");
+    fs.appendFileSync(logPath, `[DEBUG] ANALYZE ERROR: ${err.stack || err}\n`);
     console.error("[main] analyze-file error:", err);
     return { error: "Failed to analyze video." };
   }
@@ -546,6 +566,31 @@ function createWindow() {
   });
   mainWindow.loadFile(path.join("src", "index.html"));
   mainWindow.setTitle("DrinkMe");
+
+  if (!isDev) {
+    mainWindow.setMenu(null); // hide menu in production
+  }
+
+  mainWindow.webContents.on("before-input-event", (event, input) => {
+    if (input.control && input.shift && input.key.toLowerCase() === "i") {
+      event.preventDefault();
+    }
+  });
 }
 
-app.whenReady().then(createWindow);
+app.whenReady().then(() => {
+  // —————— DEBUG LOGGING ——————
+  const logPath = path.join(app.getPath("userData"), "drinkme-log.txt");
+  try {
+    fs.appendFileSync(
+      logPath,
+      `Resources path: ${process.resourcesPath}\n` +
+        `Resolved ffprobe path: ${ffprobePath}\n\n`,
+    );
+  } catch (err) {
+    console.error("💥 failed to write drinkme-log.txt", err);
+  }
+  // ——————————————————————
+
+  createWindow();
+});
