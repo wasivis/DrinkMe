@@ -348,7 +348,9 @@ function twoPassEncode(
 
   // build args for pass 1 or 2
   const makeArgs = (pass) => {
+    const bannerFlags = ["-hide_banner", "-loglevel", "info"];
     const common = [
+      ...bannerFlags,
       "-y",
       "-i",
       inputPath,
@@ -366,14 +368,16 @@ function twoPassEncode(
       "ultrafast",
       "-b:v",
       `${videoKbps}k`,
-      "-x265-params",
-      `pools=6:pass=${pass}:stats=${statsBase}.log:no-sao=1`,
+      "-pass",
+      `${pass}`,
       "-passlogfile",
       statsBase,
+      "-x265-params",
+      "pools=6:no-sao=1:log-level=error",
     ];
 
     if (pass === 1) {
-      return [...common, "-an", "-pass", "1", "-f", "null", nullSink];
+      return [...common, "-an", "-f", "null", nullSink];
     } else {
       return [
         ...common,
@@ -387,8 +391,6 @@ function twoPassEncode(
         "48000",
         "-ac",
         "2",
-        "-pass",
-        "2",
         path.join(dir, `${baseName}_SMALL.mp4`),
       ];
     }
@@ -399,13 +401,11 @@ function twoPassEncode(
     totalDuration = null;
 
     function runPass(pass) {
-      // 1) Bail early on cancel
       if (isCanceled) {
         deletePassLogFiles(dir, statsBase);
         return reject(new Error("Encoding canceled"));
       }
 
-      // 2) Safely build your args
       let args;
       try {
         args = makeArgs(pass);
@@ -414,13 +414,14 @@ function twoPassEncode(
         return reject(err);
       }
 
-      // 3) Kick off FFmpeg
       console.log(`[main] Starting pass ${pass}`, args.join(" "));
       activeProcess = spawn(ffmpegPath, args, {
         cwd: dir,
         detached: process.platform !== "win32",
       });
       const thisProc = activeProcess;
+
+      activeProcess.stdout.on("data", () => {});
 
       // track progress from stderr
       activeProcess.stderr.on("data", (data) => {
