@@ -10,6 +10,8 @@ If you find DrinkMe useful and want to support future updates, a coffee goes a l
 
 [![Buy Me a Coffee](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=💜&slug=wasivis&button_colour=FFDD00&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=ffffff)](https://www.buymeacoffee.com/wasivis)
 
+[![Support me on Ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/I2I814OYFR)
+
 ---
 
 ## Table of Contents
