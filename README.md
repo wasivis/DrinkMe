@@ -4,6 +4,12 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Platform: Windows](https://img.shields.io/badge/platform-Windows-blue)](#download)
 
+## ☕ Support my work
+
+If you find DrinkMe useful and want to support future updates, a coffee goes a long way 💜
+
+[![Buy Me a Coffee](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=💜&slug=wasivis&button_colour=FFDD00&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=ffffff)](https://www.buymeacoffee.com/wasivis)
+
 ---
 
 ## Table of Contents
@@ -13,7 +19,6 @@
 - [Screenshots](#screenshots)
 - [Download & Installation](#download)
 - [Usage](#usage)
-- [Support my work](#support)
 - [Acknowledgments](#acknowledgments)
 - [License](#license)
 
@@ -87,16 +92,6 @@ DrinkMe is a minimalist desktop app that **automatically compresses** videos int
 3️⃣ Click **Shrink**.
 
 4️⃣ Your compressed file will appear next to the original in the same folder.
-
----
-
-<a name="support"></a>
-
-## ☕ Support my work
-
-If you find DrinkMe useful and want to support future updates, a coffee goes a long way 💜
-
-[![Buy Me a Coffee](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=💜&slug=wasivis&button_colour=FFDD00&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=ffffff)](https://www.buymeacoffee.com/wasivis)
 
 ---
 
