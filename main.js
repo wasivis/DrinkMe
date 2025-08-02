@@ -14,6 +14,7 @@ const path = require("path");
 const fs = require("fs");
 const { execFile, spawn } = require("child_process");
 const checkDiskSpace = require("check-disk-space").default;
+const os = require("os");
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Globals
@@ -34,14 +35,24 @@ const encodingSettings = {};
 const isDev = !app.isPackaged;
 // use ffmpeg-static (exports the exe path) in dev,
 // and your extraResources copy in prod
-const ffmpegPath = isDev
-  ? require("ffmpeg-static")
-  : path.join(process.resourcesPath, "ffmpeg", "ffmpeg.exe");
+let ffmpegPath;
+let ffprobePath;
 
-// ffprobe-static ships an object with a `.path` property
-const ffprobePath = isDev
-  ? require("ffprobe-static").path
-  : path.join(process.resourcesPath, "ffmpeg", "ffprobe.exe");
+if (isDev) {
+  ffmpegPath = require("ffmpeg-static");
+  // ffprobe-static ships an object with a `.path` property
+  ffprobePath = require("ffprobe-static").path;
+} else {
+  const platform = os.platform();
+
+  if (platform === "win32") {
+    ffmpegPath = path.join(process.resourcesPath, "ffmpeg", "ffmpeg.exe");
+    ffprobePath = path.join(process.resourcesPath, "ffmpeg", "ffprobe.exe");
+  } else if (platform === "linux") {
+    ffmpegPath = path.join(process.resourcesPath, "ffmpeg", "ffmpeg");
+    ffprobePath = path.join(process.resourcesPath, "ffmpeg", "ffprobe");
+  }
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Utility Functions

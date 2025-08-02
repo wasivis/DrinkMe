@@ -39,16 +39,6 @@
       "!node_modules/ffmpeg-static/**",
       "!node_modules/ffprobe-static/**"
     ],
-    "extraResources": [
-      {
-        "from": "node_modules/ffmpeg-static/ffmpeg.exe",
-        "to": "ffmpeg/ffmpeg.exe"
-      },
-      {
-        "from": "node_modules/ffprobe-static/bin/win32/${arch}/ffprobe.exe",
-        "to": "ffmpeg/ffprobe.exe"
-      }
-    ],
     "win": {
       "icon": "assets/icon.ico",
       "target": [
@@ -60,6 +50,33 @@
           ]
         },
         "portable"
+      ],
+      "extraResources": [
+        {
+          "from": "node_modules/ffmpeg-static/ffmpeg.exe",
+          "to": "ffmpeg/ffmpeg.exe"
+        },
+        {
+          "from": "node_modules/ffprobe-static/bin/win32/${arch}/ffprobe.exe",
+          "to": "ffmpeg/ffprobe.exe"
+        }
+      ]
+    },
+    "linux": {
+      "icon": "assets/icon.png",
+      "category": "Video;Utility;",
+      "target": [
+        "AppImage"
+      ],
+      "extraResources": [
+        {
+          "from": "node_modules/ffmpeg-static/ffmpeg",
+          "to": "ffmpeg/ffmpeg"
+        },
+        {
+          "from": "node_modules/ffprobe-static/bin/linux/${arch}/ffprobe",
+          "to": "ffmpeg/ffprobe"
+        }
       ]
     },
     "nsis": {
