@@ -11,7 +11,7 @@
   --accent-dark: #008c76;
   --accent-soft: #e0f5ef;
   --dark: #252d2a;
-  --container: 1120px;
+  --container: 1280px;
 }
 
 * {
@@ -33,7 +33,7 @@ body {
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
-  font-size: 15px;
+  font-size: 17px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
 }
@@ -49,7 +49,7 @@ a:focus-visible {
 }
 
 .container {
-  width: min(var(--container), calc(100% - 48px));
+  width: min(var(--container), calc(100% - 64px));
   margin-inline: auto;
 }
 
@@ -97,7 +97,7 @@ a:focus-visible {
   align-items: center;
   gap: 32px;
   color: var(--muted);
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
 }
 
@@ -119,7 +119,7 @@ a:focus-visible {
   border: 1px solid var(--line);
   border-radius: 9px;
   background: var(--surface);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 800;
   transition:
     background 160ms ease,
@@ -135,11 +135,11 @@ a:focus-visible {
 
 .hero {
   display: grid;
-  grid-template-columns: 1fr 0.92fr;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
-  gap: 68px;
-  padding-top: 110px;
-  padding-bottom: 110px;
+  gap: 72px;
+  padding-top: 120px;
+  padding-bottom: 120px;
 }
 
 .hero-copy {
@@ -149,7 +149,7 @@ a:focus-visible {
 .eyebrow {
   margin: 0 0 20px;
   color: var(--accent-dark);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 800;
   letter-spacing: 1.6px;
   line-height: 1.5;
@@ -187,7 +187,7 @@ h1,
 
 h1 {
   margin-bottom: 24px;
-  font-size: clamp(44px, 5.2vw, 66px);
+  font-size: clamp(50px, 5.5vw, 76px);
   font-weight: 700;
 }
 
@@ -200,10 +200,10 @@ h1 span,
 }
 
 .hero-description {
-  max-width: 470px;
+  max-width: 540px;
   margin-bottom: 30px;
   color: var(--muted);
-  font-size: 15px;
+  font-size: 18px;
   line-height: 1.95;
 }
 
@@ -222,7 +222,7 @@ h1 span,
   padding: 0 19px;
   border: 1px solid transparent;
   border-radius: 9px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 800;
   transition:
     transform 160ms ease,
@@ -260,7 +260,7 @@ h1 span,
   gap: 10px;
   margin-top: 22px;
   color: var(--muted);
-  font-size: 11px;
+  font-size: 13px;
 }
 
 .footnote-separator {
@@ -277,7 +277,7 @@ h1 span,
 
 .screenshot-frame {
   width: 100%;
-  max-width: 580px;
+  max-width: 700px;
   margin-inline: auto;
 }
 
@@ -449,7 +449,7 @@ h1 span,
 
 .file-size {
   color: #5f6862;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 800;
   white-space: nowrap;
 }
@@ -555,7 +555,7 @@ h1 span,
 .visual-disclaimer {
   margin: 12px 0 0;
   color: var(--muted);
-  font-size: 11px;
+  font-size: 13px;
   text-align: center;
 }
 
@@ -577,7 +577,7 @@ h1 span,
 
 .value-label {
   color: var(--muted);
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 800;
   letter-spacing: 1.3px;
   white-space: nowrap;
@@ -594,7 +594,7 @@ h1 span,
   align-items: center;
   gap: 8px;
   color: #525e56;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
 }
 
@@ -607,13 +607,13 @@ h1 span,
 /* Features */
 
 .section {
-  padding-top: 112px;
-  padding-bottom: 120px;
+  padding-top: 128px;
+  padding-bottom: 136px;
 }
 
 .section-heading {
-  max-width: 660px;
-  margin-bottom: 47px;
+  max-width: 760px;
+  margin-bottom: 56px;
 }
 
 .section-heading .eyebrow {
@@ -624,28 +624,28 @@ h1 span,
 .how-intro h2,
 .cta-card h2 {
   margin-bottom: 19px;
-  font-size: clamp(36px, 4vw, 48px);
+  font-size: clamp(42px, 4.3vw, 56px);
   font-weight: 750;
 }
 
 .section-heading > p:last-child,
 .how-intro > p:last-child,
 .cta-copy > p:last-child {
-  max-width: 470px;
+  max-width: 560px;
   margin-bottom: 0;
   color: var(--muted);
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.9;
 }
 
 .feature-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 17px;
+  gap: 22px;
 }
 
 .feature-card {
-  padding: 29px 25px 30px;
+  padding: 34px 30px 36px;
   border: 1px solid var(--line);
   border-radius: 15px;
   background: var(--surface);
@@ -684,7 +684,7 @@ h1 span,
 
 .feature-card h3 {
   margin-bottom: 12px;
-  font-size: 16px;
+  font-size: 19px;
   font-weight: 800;
   letter-spacing: -0.4px;
 }
@@ -692,14 +692,14 @@ h1 span,
 .feature-card p {
   margin-bottom: 0;
   color: var(--muted);
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.9;
 }
 
 /* How it works */
 
 .how-section {
-  padding: 100px 0;
+  padding: 116px 0;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   background: #eef2ef;
@@ -709,7 +709,7 @@ h1 span,
   display: grid;
   grid-template-columns: 0.9fr 1fr;
   align-items: start;
-  gap: 100px;
+  gap: 120px;
 }
 
 .how-intro .eyebrow {
@@ -717,7 +717,7 @@ h1 span,
 }
 
 .how-intro h2 {
-  font-size: clamp(37px, 4vw, 47px);
+  font-size: clamp(42px, 4.3vw, 54px);
 }
 
 .steps {
@@ -743,29 +743,29 @@ h1 span,
 
 .step-number {
   color: var(--accent-dark);
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 800;
   letter-spacing: 1px;
 }
 
 .step h3 {
   margin-bottom: 7px;
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 800;
 }
 
 .step p {
   margin-bottom: 0;
   color: var(--muted);
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.85;
 }
 
 /* CTA */
 
 .final-cta {
-  padding-top: 100px;
-  padding-bottom: 100px;
+  padding-top: 116px;
+  padding-bottom: 116px;
 }
 
 .cta-card {
@@ -773,7 +773,7 @@ h1 span,
   align-items: center;
   justify-content: space-between;
   gap: 40px;
-  padding: 56px;
+  padding: 64px;
   border-radius: 19px;
   background: var(--dark);
   color: white;
@@ -831,7 +831,7 @@ h1 span,
 .footer-note,
 .footer-links {
   color: var(--muted);
-  font-size: 11px;
+  font-size: 13px;
 }
 
 .footer-note {
@@ -863,7 +863,7 @@ h1 span,
   }
 
   .product-visual {
-    width: min(100%, 570px);
+    width: min(100%, 720px);
     margin-inline: auto;
   }
 
@@ -921,7 +921,7 @@ h1 span,
   .nav-cta {
     gap: 7px;
     padding: 9px 11px;
-    font-size: 11px;
+    font-size: 13px;
   }
 
   .hero {
@@ -931,12 +931,12 @@ h1 span,
   }
 
   h1 {
-    font-size: clamp(42px, 10.5vw, 53px);
+    font-size: clamp(44px, 10.5vw, 56px);
     letter-spacing: -2px;
   }
 
   .hero-description {
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .hero-actions {
@@ -947,7 +947,7 @@ h1 span,
     flex: 1;
     gap: 9px;
     padding-inline: 12px;
-    font-size: 11px;
+    font-size: 13px;
   }
 
   .app-content {
@@ -1007,8 +1007,8 @@ h1 span,
   }
 
   .section {
-    padding-top: 78px;
-    padding-bottom: 82px;
+    padding-top: 88px;
+    padding-bottom: 92px;
   }
 
   .section-heading {
@@ -1018,7 +1018,7 @@ h1 span,
   .section-heading h2,
   .how-intro h2,
   .cta-card h2 {
-    font-size: 37px;
+    font-size: 40px;
     letter-spacing: -1.8px;
   }
 
@@ -1028,7 +1028,7 @@ h1 span,
   }
 
   .feature-card {
-    padding: 23px;
+    padding: 26px;
   }
 
   .feature-icon {
@@ -1036,7 +1036,7 @@ h1 span,
   }
 
   .how-section {
-    padding: 76px 0;
+    padding: 88px 0;
   }
 
   .how-layout {
